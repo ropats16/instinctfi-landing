@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { addToWaitlist } from "../../../lib/waitlist";
+import { addToWaitlist } from "@/lib/waitlist";
 
 const Body = z.object({ email: z.email() });
 
