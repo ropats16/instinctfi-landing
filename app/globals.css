@@ -4,7 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Tiers: <768 mobile (unprefixed) · md 768+ tablet · lg 1024+ desktop · xl 1440+ wide */
 @theme {
+  --breakpoint-sm: initial;
+  --breakpoint-2xl: initial;
+  --breakpoint-xl: 90rem;
+
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --color-bg: #f4f4f3;

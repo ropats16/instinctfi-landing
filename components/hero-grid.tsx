@@ -21,7 +21,7 @@ export function HeroGrid() {
       </div>
 
       {/* Grid canvas — fluid: cells size to container via 1fr cols + aspect-ratio */}
-      <div className="px-3 py-3 sm:px-4 sm:py-4 lg:px-5 lg:py-5 xl:px-6 xl:py-6 2xl:px-8 2xl:py-8">
+      <div className="px-3 py-3 md:px-4 md:py-4 lg:px-5 lg:py-5 xl:px-6 xl:py-6">
         <div
           className="grid w-full"
           style={{
