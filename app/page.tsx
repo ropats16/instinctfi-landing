@@ -14,12 +14,12 @@ export default function Page() {
         <div className="flex w-full justify-center">
           <div className="w-full max-w-[min(80vw,55vh)] lg:max-w-[min(35vw,35vh)] aspect-square">
             <video
-              src="/visualiser-loop-sq.mp4"
+              src="/visualiser-loop-sq-white.mp4"
               autoPlay
               loop
               muted
               playsInline
-              className="size-full object-cover"
+              className="size-full object-cover mix-blend-multiply"
             />
           </div>
         </div>
@@ -40,7 +40,7 @@ export default function Page() {
 
       {/* Footer */}
       <footer className="text-center text-[var(--color-muted)] text-[clamp(0.7rem,0.85vw,0.95rem)]">
-        <p>Follow the smart money. Built on Solana.</p>
+        <p>Follow the smart money. © Instinct 2026</p>
       </footer>
     </main>
   );
