@@ -9,7 +9,7 @@ export type Bar = {
   color: BarColor;
 };
 
-export const GRID = { cols: 56, rows: 14 } as const;
+export const GRID = { cols: 50, rows: 18 } as const;
 
 // Hand-tuned to evoke the mockup (sparse columns of red/green bars).
 // Each entry is { col, row, height, color }.
@@ -33,5 +33,4 @@ export const BARS: Bar[] = [
   { col: 43, row: 0, height: 11, color: "red" },
   { col: 46, row: 0, height: 6,  color: "green" },
   { col: 49, row: 0, height: 9,  color: "red" },
-  { col: 52, row: 0, height: 5,  color: "green" },
 ];

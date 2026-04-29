@@ -39,7 +39,7 @@ export function WaitlistForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex w-full max-w-md flex-col items-center gap-3 sm:flex-row"
+      className="flex w-full max-w-[clamp(260px,22vw,420px)] flex-col items-stretch gap-2 2xl:gap-3"
     >
       <Input
         type="email"
@@ -48,18 +48,18 @@ export function WaitlistForm() {
         placeholder="you@email.com"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="h-11 rounded-full bg-white/80 text-center sm:flex-1 sm:text-left"
+        className="h-9 rounded-none border-black/15 bg-white/80 text-center text-sm xl:h-10 xl:text-base 2xl:h-12 2xl:text-lg"
       />
       <Button
         type="submit"
         disabled={state === "loading"}
-        className="h-11 rounded-full bg-black px-6 text-white hover:bg-black/90"
+        className="h-11 rounded-none bg-black px-6 text-sm font-medium text-white hover:bg-black/90 xl:h-12 xl:text-base 2xl:h-14 2xl:text-lg"
       >
         {state === "loading" ? "Joining…" : "Join the private alpha →"}
       </Button>
       {message && (
         <p
-          className={`text-xs sm:absolute sm:translate-y-12 ${
+          className={`text-center text-xs ${
             state === "error" ? "text-red-600" : "text-emerald-700"
           }`}
         >
