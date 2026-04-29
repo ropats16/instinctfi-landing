@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Instinct — Waitlist Landing
 
-## Getting Started
+Next.js 16 landing page for the Instinct private alpha. Curated tokenised stock baskets on Solana.
 
-First, run the development server:
+## Dev
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Test
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm test
+```
 
-## Learn More
+## Build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm build
+pnpm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project map
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `app/page.tsx` — landing composition
+- `app/layout.tsx` — fonts (Bricolage Grotesque + Inter) + metadata
+- `app/globals.css` — Tailwind v4 theme tokens + dotted background
+- `app/api/waitlist/route.ts` — `POST /api/waitlist`, validates email and forwards to `lib/waitlist.ts`
+- `components/logo.tsx` — inline Instinct SVG (uses `currentColor`)
+- `components/hero-grid.tsx` — data-driven grid with red/green bars; cell size driven by `--cell` CSS var for responsive scaling. Each cell is `<div data-col data-row>` so future per-cell animations can target by coordinate.
+- `components/waitlist-form.tsx` — client component with idle/loading/success/error state
+- `components/ui/{button,input}.tsx` — shadcn (base-nova style)
+- `lib/grid-data.ts` — `GRID` (cols/rows) + `BARS[]` (hand-tuned positions)
+- `lib/waitlist.ts` — `addToWaitlist(email)` stub. Replace body with Supabase / Resend / etc.
 
-## Deploy on Vercel
+## Hooking up the waitlist
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Right now, signups are logged to the server console. To persist them, replace the body of `addToWaitlist()` in `lib/waitlist.ts`. The signature is stable, so callers don't change.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Example with Supabase:
+
+```ts
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE!);
+
+export async function addToWaitlist(email: string): Promise<WaitlistResult> {
+  const { error } = await supabase.from("waitlist").insert({ email });
+  if (error) return { ok: false, error: error.message };
+  return { ok: true };
+}
+```
+
+Example with Resend Audiences:
+
+```ts
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function addToWaitlist(email: string): Promise<WaitlistResult> {
+  const { error } = await resend.contacts.create({
+    email,
+    audienceId: process.env.RESEND_AUDIENCE_ID!,
+  });
+  if (error) return { ok: false, error: error.message };
+  return { ok: true };
+}
+```
+
+## Phase 2 note
+
+The hero grid is intentionally addressable. Every cell renders as `<div data-col data-row>`. Phase 2 will animate cells (mutate their content / color over time, e.g. live tickers). Bars are also data-driven via `BARS` in `lib/grid-data.ts` — swap to live data when ready.
