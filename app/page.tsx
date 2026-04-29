@@ -12,7 +12,7 @@ export default function Page() {
 
       {/* Hero */}
       <section className="flex w-full flex-1 flex-col items-center justify-center gap-8 py-8">
-        <div className="w-full max-w-2xl">
+        <div className="flex w-full justify-center [--cell:5px] sm:[--cell:9px] lg:[--cell:11px]">
           <HeroGrid />
         </div>
 

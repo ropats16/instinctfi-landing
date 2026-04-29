@@ -1,13 +1,12 @@
 import { GRID, BARS, type Bar } from "@/lib/grid-data";
 
-const CELL = 11; // px
+// Cell size is driven by the `--cell` CSS variable (default 11px).
+// Override per breakpoint at the wrapper to scale the grid responsively.
+const CELL_VAR = "var(--cell, 11px)";
 
 export function HeroGrid() {
-  const widthPx = GRID.cols * CELL;
-  const heightPx = GRID.rows * CELL;
-
   return (
-    <div className="rounded-2xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] border border-black/5 overflow-hidden">
+    <div className="rounded-2xl bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] border border-black/5 overflow-hidden inline-block">
       {/* Browser chrome */}
       <div className="flex items-center gap-1.5 px-4 py-3 border-b border-black/5">
         <span className="size-2.5 rounded-full bg-[#ff5f57]" />
@@ -18,14 +17,17 @@ export function HeroGrid() {
       {/* Grid canvas */}
       <div
         className="relative mx-auto my-6"
-        style={{ width: widthPx, height: heightPx }}
+        style={{
+          width: `calc(${GRID.cols} * ${CELL_VAR})`,
+          height: `calc(${GRID.rows} * ${CELL_VAR})`,
+        }}
       >
         {/* Dotted cell grid */}
         <div
           className="absolute inset-0 grid"
           style={{
-            gridTemplateColumns: `repeat(${GRID.cols}, ${CELL}px)`,
-            gridTemplateRows: `repeat(${GRID.rows}, ${CELL}px)`,
+            gridTemplateColumns: `repeat(${GRID.cols}, ${CELL_VAR})`,
+            gridTemplateRows: `repeat(${GRID.rows}, ${CELL_VAR})`,
           }}
         >
           {Array.from({ length: GRID.cols * GRID.rows }, (_, i) => {
@@ -54,15 +56,17 @@ export function HeroGrid() {
 }
 
 function BarShape({ bar }: { bar: Bar }) {
-  const left = bar.col * CELL;
-  const bottom = bar.row * CELL;
-  const width = CELL - 2;
-  const height = bar.height * CELL - 2;
   const bg = bar.color === "red" ? "var(--color-bar-red)" : "var(--color-bar-green)";
   return (
     <span
       className="absolute rounded-[2px]"
-      style={{ left, bottom, width, height, background: bg }}
+      style={{
+        left: `calc(${bar.col} * ${CELL_VAR})`,
+        bottom: `calc(${bar.row} * ${CELL_VAR})`,
+        width: `calc(${CELL_VAR} - 2px)`,
+        height: `calc(${bar.height} * ${CELL_VAR} - 2px)`,
+        background: bg,
+      }}
     />
   );
 }
