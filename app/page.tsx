@@ -13,7 +13,7 @@ export default function Page() {
       <section className="flex flex-1 flex-col w-full items-center justify-center h-full py-6 px-4">
         <div className="flex flex-col items-center w-full max-w-xl md:max-w-2xl lg:max-w-3xl justify-between gap-6">
           <video
-            src="/video.mp4"
+            src="/video.webm"
             autoPlay
             loop
             muted
