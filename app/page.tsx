@@ -18,6 +18,8 @@ export default function Page() {
             loop
             muted
             playsInline
+            width={720}
+            height={720}
             className="aspect-square object-cover mix-blend-multiply max-w-md w-full"
           />
           <div className="flex flex-col gap-2">
