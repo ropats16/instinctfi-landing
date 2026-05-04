@@ -22,13 +22,13 @@ export default function Page() {
             height={720}
             className="aspect-square object-cover mix-blend-multiply max-w-md w-full"
           />
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 items-center">
             <h1 className="font-display leading-[1.05] tracking-[-0.02em] text-center text-[clamp(2rem,5vw,3.5rem)]">
               Your cheatcode to
               <br />
               Internet Capital Markets.
             </h1>
-            <p className="font-medium uppercase tracking-[0.18em] text-center text-[var(--color-muted)] text-[clamp(0.7rem,0.95vw,0.85rem)]">
+            <p className="max-w-md text-center font-medium uppercase tracking-[0.18em] text-center text-[var(--color-muted)] text-[clamp(0.7rem,0.95vw,0.85rem)]">
               One click exposure to the hottest trends as tokenized assets
             </p>
           </div>
