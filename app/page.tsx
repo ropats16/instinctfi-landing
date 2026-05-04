@@ -29,7 +29,7 @@ export default function Page() {
               Internet Capital Markets.
             </h1>
             <p className="font-medium uppercase tracking-[0.18em] text-center text-[var(--color-muted)] text-[clamp(0.7rem,0.95vw,0.85rem)]">
-              Curated tokenised stock baskets on Solana.
+              One click exposure to the hottest trends as tokenized assets
             </p>
           </div>
           <WaitlistForm />
